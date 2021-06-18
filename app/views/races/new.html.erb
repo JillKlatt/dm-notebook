@@ -1,5 +1,11 @@
-<h1>New Race</h1>
+<h1>Create New Race</h1>
 
-<%= render 'form', race: @race %>
-
-<%= link_to 'Back', races_path %>
+<%= form_for @race do |f|%>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :trait %>
+    <%= f.text_field :trait %>
+    <%= f.label :jills_opinion, "Jill's Hot Take"%>
+    <%= f.text_field :jills_opinion %>
+    <%= f.submit %>
+<% end %>

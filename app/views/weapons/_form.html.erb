@@ -1,17 +1,10 @@
-<%= form_with(model: weapon) do |form| %>
-  <% if weapon.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(weapon.errors.count, "error") %> prohibited this weapon from being saved:</h2>
 
-      <ul>
-        <% weapon.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= form_with model: @weapon do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+    <%= f.label :damage %>
+    <%= f.text_field :damage %><br>
+    <%= f.label "Description (optional)" %>
+    <%= f.text_area :description, :size=>"50" %>
+    <%= f.submit %>
 <% end %>

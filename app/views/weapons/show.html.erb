@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @weapon.name %> </h1>
+<%= @weapon.description %><br>
+<h5>Deals <%= @weapon.damage%><br></h5>
 
-<%= link_to 'Edit', edit_weapon_path(@weapon) %> |
-<%= link_to 'Back', weapons_path %>
+<br>
+<%= link_to 'Delete Weapon', weapon_path(@weapon), method: "delete" %>

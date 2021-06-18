@@ -1,6 +1,11 @@
-<h1>Editing Race</h1>
 
-<%= render 'form', race: @race %>
-
-<%= link_to 'Show', @race %> |
-<%= link_to 'Back', races_path %>
+<%= form_for @race do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+    <%= f.label :trait %>
+    <%= f.text_field :trait %><br>
+    <%= f.label :jills_opinion, "Jill's Hot Take:"%>
+    <%= f.text_field :jills_opinion %><br>
+    <%= f.submit %>
+<% end %>
+<%= button_to 'Delete Race', race_path(@race), method: "delete" %>

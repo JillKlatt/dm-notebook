@@ -1,5 +1,6 @@
+  
 <h1>New Weapon</h1>
 
-<%= render 'form', weapon: @weapon %>
-
-<%= link_to 'Back', weapons_path %>
+<br>
+<br>
+<%= render partial: 'form', locals: {model: @weapon} %>
