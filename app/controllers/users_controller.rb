@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-      #binding.pry
+    #   byebug
       @user = User.new(user_params)
       if @user.save
           flash[:message] = "Let's get creating!"

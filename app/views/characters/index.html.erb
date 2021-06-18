@@ -1,25 +1,18 @@
-<p id="notice"><%= notice %></p>
+<% if @characters.count > 0 %>
+    <% if @campaign.present? %>
+        <h1>The characters in this campaign:</h1>
+        <%= link_to 'Create New Character In This Campaign', new_campaign_character_path %>
+    <% else %>
 
-<h1>Characters</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @characters.each do |character| %>
-      <tr>
-        <td><%= link_to 'Show', character %></td>
-        <td><%= link_to 'Edit', edit_character_path(character) %></td>
-        <td><%= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+            <h1>All Your Characters: (No campaign specified)</h1>
+    <div>
+        <ul>
+    <%= render @characters %>
+        </ul>
+    </div>
+    <%= link_to "Sort By Last Updated", last_updated_path %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Character', new_character_path %>
+<% else%>
+    <h1> You Don't Have Any Characters Yet!</h1>
+    <%= link_to 'Create One Now?', new_character_path %>
+<% end %>

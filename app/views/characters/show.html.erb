@@ -1,4 +1,72 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_character_path(@character) %> |
-<%= link_to 'Back', characters_path %>
+
+<h1 class=h1-header-text><%= @character.name %></h1>
+
+
+
+<div>
+     <h4><%= @character.race.name %> <%= @character.category.name %> </h4>
+     <br>Race traits: <%= @character.race.trait%>
+     <br>Class traits: <%= @character.category.trait%><br>
+
+</div>
+<br>
+
+<h4><%=@character.description %></h4>
+<br>
+
+<!-- DISPLAY CURRENT CAMPAIGNS IN TOGGLE -->
+<% if @character.campaigns.count > 0 %>
+
+    <p>
+        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Current Campaigns
+    </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+            <% @character.campaigns.each do |campaign| %>
+            <%= link_to campaign.name, campaign_path(campaign) %><br>
+            <% end %>
+    </div>
+    </div>
+<% end %>
+<!-- END CAMPAIGN TOGGLE-->
+
+<!-- DISPLAY CURRENT WEAPONS IN TOGGLE -->
+        <!-- Create display_weapons method-->
+<% if @character.weapons.count > 0 %>
+
+    <p>
+        <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Current Weapons
+    </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+            <% @character.weapons.each do |weapon| %>
+            <%= link_to weapon.name, weapon_path(weapon) %><br>
+            <% end %>
+    </div>
+    </div>
+<% end %>
+
+<!--END WEAPON TOGGLE-->
+
+
+
+<br>
+<br>
+<div class="container">
+  <div class="row align-items-start">
+      <div class="col">
+  <!--  <%= link_to 'Edit Character', edit_character_path(@character) %>-->
+    <%= button_to 'Edit Character', edit_character_path(@character), method: 'get' %>
+    </div>
+     <div class="col">
+    <%= button_to 'Delete Character', character_path(@character), method: 'delete' %>
+</div>
+<br>
+<br>
+
+    <%= link_to 'View All Characters', characters_path %>

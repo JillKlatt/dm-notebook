@@ -1,6 +1,11 @@
-<h1>Editing Category</h1>
 
-<%= render 'form', category: @category %>
-
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', categories_path %>
+<%= form_for @category do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+    <%= f.label :trait %>
+    <%= f.text_field :trait %><br>
+    <%= f.label :jills_opinion, "Jill's Hot Take:"%>
+    <%= f.text_field :jills_opinion %><br>
+    <%= f.submit %>
+<% end %>
+<%= button_to 'Delete Category', category_path(@category), method: "delete" %>

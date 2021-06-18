@@ -1,6 +1,31 @@
-<h1>Editing Character</h1>
+<%= if_errors(@character) %>
+<%= render partial: 'form', locals: {model: @character} %>
 
-<%= render 'form', character: @character %>
+        <h3>Character Weapons:</h3>
+        <% if @weapons.blank? %>
+        <h3>You don't have any weapons yet!  </h3><%= link_to 'Create one now?', new_character_weapon_path(@character) %>
+        <% else %>
+             <%= form_with model: @character do |f| %>
+                <%= f.collection_check_boxes :weapon_ids, @weapons, :id, :name %><br>
+                <%= f.submit "Update Weapons" %>
+                <% end %>
+        <% end %>
+            <%= form_with model: @character do |f| %>
+                <% @character.character_weapons.each do |character_weapon| %>
+                <h5><%= character_weapon.weapon.name%></h5>
+                <%= f.label :character_weapon_notes, "Weapon notes for this character" %>
+                <%= f.text_field :character_weapon_notes%>  <br>
+                    <% end %>
+                    <%= f.submit "Add Notes"%>
+            <% end %>
+    <% if @campaigns.count > 0%>
+            <%= form_with model: @character do |f| %>
+            <%= f.collection_check_boxes :campaign_ids, @campaigns, :id, :name %><br>
+            <%= f.submit "Update Campaigns" %>
+            <% end %>
+    <% end %>
 
-<%= link_to 'Show', @character %> |
-<%= link_to 'Back', characters_path %>
+
+
+<!--
+<%= link_to 'Delete Character', characters_path(@character), method: "delete" %> -->

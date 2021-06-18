@@ -1,4 +1,4 @@
-require 'pry'
+
 
 class CharactersController < ApplicationController
     before_action :redirect_if_not_logged_in

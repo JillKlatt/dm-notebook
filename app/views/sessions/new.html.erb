@@ -1,5 +1,14 @@
-<h1>New Session</h1>
 
-<%= render 'form', session: @session %>
 
-<%= link_to 'Back', sessions_path %>
+<h1>Welcome Back!</h1>
+
+
+<%= form_with(scope: :user, url: login_path) do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.submit "Let's Go!" %>
+<%end%>
+<br>
+<%= button_to 'Login with Google', "/auth/google_oauth2", method: 'post' %>
