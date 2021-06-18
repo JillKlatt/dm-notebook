@@ -36,7 +36,7 @@
     }
 
     #project1:hover h4 {
-      color: white;
+      color: rgb(27, 27, 27);
   }
 
     input.body {
@@ -44,7 +44,7 @@
     }
 
     body {
-      background: rgb(245, 213, 213);
+      background: rgb(219, 145, 145);
     }
 
     .my-awesome-class textarea {
@@ -55,3 +55,8 @@
    .h-header-text {
     color: rgb(60, 101, 128);
    }
+
+   body { 
+    background-image: url('4.png') no-repeat center center; 
+    background-size: cover;
+  }
