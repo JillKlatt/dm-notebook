@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :sessions
+  resources :races
+  resources :character_weapons
+  resources :categories
+  resources :campaigns
   resources :weapons
   resources :characters
   resources :users
