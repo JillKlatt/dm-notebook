@@ -1,4 +1,45 @@
-<p id="notice"><%= notice %></p>
+<br>
+<br>
+<h2 class=h-header-text><%= @campaign.name%></h2>
+<br>
+<h3>This campaign takes place on <%= @campaign.schedule %> </h3>
+<br>
+<h4>Campaign Description: </h4><%= @campaign.description %>
+<br>
 
-<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
-<%= link_to 'Back', campaigns_path %>
+ <br>
+
+<!-- FIND DM METHOD -->
+
+<% if_dm(@campaign)%>
+<h4><%= find_dm %></h4>
+<br>
+<br>
+
+<!-- END FIND DM-->
+
+<!-- SHOW CHARACTERS -->
+
+
+
+
+    <p>
+        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Current Characters
+    </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+    <!--<%=if_characters(@campaign)%>-->
+        <% @campaign.characters.each do |character|%>
+            <%= link_to character.name, character_path(character)%>
+        <% end %>
+    </div>
+    </div>
+    </p>
+<!--END SHOW CHARACTERS-->
+
+<%= button_to 'Edit Campaign', edit_campaign_path(@campaign), method: 'get' %>
+<br>
+<%= button_to 'Delete Campaign', campaign_path(@campaign), method: 'delete' %>
+

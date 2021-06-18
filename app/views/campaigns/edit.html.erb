@@ -1,6 +1,32 @@
-<h1>Editing Campaign</h1>
+<br>
+<br>
+<%= if_errors(@campaign) %>
+<%= render partial: 'form', locals: {model: @campaign} %>
 
-<%= render 'form', campaign: @campaign %>
 
-<%= link_to 'Show', @campaign %> |
-<%= link_to 'Back', campaigns_path %>
+
+
+        <h3>This campaign includes:</h3>
+        <% if current_user.characters.count > 0 %>
+            <%= form_with model: @campaign do |f| %>
+            <%= f.collection_check_boxes :character_ids, @characters, :id, :name %><br>
+            <%= f.submit "Update Characters" %>
+            <% end %>
+        <% else %>
+        <h3>You don't have any characters yet!  </h3><%= link_to 'Create one now?', new_campaign_character_path(@campaign) %>
+        <% end %>
+
+        
+        <h3>Select Dungeon Master for this campaign:</h3>
+    <%= form_with model: @campaign do |f| %>
+                <% @campaign.adventures.each do |adventure| %>
+                <%= f.radio_button :adventure_admin, adventure.id, { checked: !!adventure.role } %><%= adventure.character.name%>  <br>
+                    <% end %>
+                    <%= f.submit "Change DM"%>
+            <% end %>
+
+<br>
+
+
+
+<h5><%= link_to "Create New Character for this Campaign", new_campaign_character_path(@campaign)%></h5>

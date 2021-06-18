@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+
+ .center {
+    text-align: center
+   }
+
+   a:link {
+    color: green;
+  }
+
+   a:link, a:visited {
+    color: rgb(39, 8, 35);
+    padding: 10px 20px;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    }
+    
+    a:hover, a:active {
+      background-color: rgb(60, 101, 128);
+    }
+
+    #project1:hover h4 {
+      color: white;
+  }
+
+    input.body {
+      width:95%;
+    }
+
+    body {
+      background: rgb(245, 213, 213);
+    }
+
+    .my-awesome-class textarea {
+      color: rgb(42, 133, 133);
+   }
+
+
+   .h-header-text {
+    color: rgb(60, 101, 128);
+   }
