@@ -1,69 +1,57 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show edit update destroy ]
+  #display available classes, find or create by new ones
 
-  # GET /categories or /categories.json
   def index
-    @categories = Category.all
+      @categories = Category.all
   end
 
-  # GET /categories/1 or /categories/1.json
-  def show
-  end
-
-  # GET /categories/new
   def new
-    @category = Category.new
+      @category = Category.new
   end
 
-  # GET /categories/1/edit
-  def edit
-  end
-
-  # POST /categories or /categories.json
   def create
-    @category = Category.new(category_params)
-
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category, notice: "Category was successfully created." }
-        format.json { render :show, status: :created, location: @category }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
-    end
+      @category = Category.new(category_params)
+          if @category.save
+              redirect_to categories_path
+          else
+              redirect_to :new
+          end
   end
 
-  # PATCH/PUT /categories/1 or /categories/1.json
+  def edit                              
+      @category = Category.find_by(id: params[:id])
+  end
+
   def update
-    respond_to do |format|
-      if @category.update(category_params)
-        format.html { redirect_to @category, notice: "Category was successfully updated." }
-        format.json { render :show, status: :ok, location: @category }
+      @category = Category.find_by(id: params[:id])
+      @category.update(category_params)
+
+
+      #binding.pry
+
+      if @category.valid?
+          redirect_to categories_path
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+          render :edit
       end
-    end
   end
 
-  # DELETE /categories/1 or /categories/1.json
+  def show
+      @category = Category.find_by(id: params[:id])
+  end
+
+
+  
   def destroy
-    @category.destroy
-    respond_to do |format|
-      format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
-      format.json { head :no_content }
-    end
+      @category = Category.find_by(id: params[:id])
+      @category.destroy
+      flash[:message] = "Category Deleted"
+      redirect_to categories_path
+  end
+  private
+
+  def category_params
+      params.require(:category).permit(:name, :trait, :jills_opinion)
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def category_params
-      params.fetch(:category, {})
-    end
 end

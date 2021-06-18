@@ -1,69 +1,56 @@
 class RacesController < ApplicationController
-  before_action :set_race, only: %i[ show edit update destroy ]
 
-  # GET /races or /races.json
-  def index
-    @races = Race.all
-  end
+  #display available races, find or create by new ones
 
-  # GET /races/1 or /races/1.json
-  def show
-  end
+def index
+  @races = Race.all
+end
 
-  # GET /races/new
-  def new
-    @race = Race.new
-  end
+def new
+  @race = Race.new
+end
 
-  # GET /races/1/edit
-  def edit
-  end
-
-  # POST /races or /races.json
-  def create
-    @race = Race.new(race_params)
-
-    respond_to do |format|
+def create
+  @race = Race.new(race_params)
       if @race.save
-        format.html { redirect_to @race, notice: "Race was successfully created." }
-        format.json { render :show, status: :created, location: @race }
+          redirect_to races_path
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @race.errors, status: :unprocessable_entity }
+          redirect_to :new
       end
-    end
+end
+
+def show
+  @race = Race.find_by(id: params[:id])
+end
+
+def edit                              
+  @race = Race.find_by(id: params[:id])
+end
+
+def update
+  @race = Race.find_by(id: params[:id])
+  @race.update(race_params)
+
+
+  #binding.pry
+
+  if @race.valid?
+      redirect_to races_path
+  else
+      render :edit
   end
+end
 
-  # PATCH/PUT /races/1 or /races/1.json
-  def update
-    respond_to do |format|
-      if @race.update(race_params)
-        format.html { redirect_to @race, notice: "Race was successfully updated." }
-        format.json { render :show, status: :ok, location: @race }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @race.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+def destroy
+  @race = Race.find_by(id: params[:id])
+  @race.destroy
+  flash[:message] = "Race Deleted"
+  redirect_to races_path
+end
 
-  # DELETE /races/1 or /races/1.json
-  def destroy
-    @race.destroy
-    respond_to do |format|
-      format.html { redirect_to races_url, notice: "Race was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+private
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_race
-      @race = Race.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def race_params
-      params.fetch(:race, {})
-    end
+def race_params
+  params.require(:race).permit(:name, :trait, :jills_opinion)
+end
 end

@@ -1,69 +1,51 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: %i[ show edit update destroy ]
 
-  # GET /sessions or /sessions.json
-  def index
-    @sessions = Session.all
-  end
 
-  # GET /sessions/1 or /sessions/1.json
-  def show
-  end
-
-  # GET /sessions/new
   def new
-    @session = Session.new
+
   end
 
-  # GET /sessions/1/edit
-  def edit
-  end
-
-  # POST /sessions or /sessions.json
   def create
-    @session = Session.new(session_params)
-
-    respond_to do |format|
-      if @session.save
-        format.html { redirect_to @session, notice: "Session was successfully created." }
-        format.json { render :show, status: :created, location: @session }
+      @user = User.find_by_email(params[:user][:email])
+          #binding.pry
+      if @user && @user.authenticate(params[:user][:password])
+          #flash[:message] = "Welcome '#{@user.name!}"
+          session[:user_id] = @user.id
+          redirect_to '/'
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
+          flash[:message] = "Issue logging in, please try again"
+          render :new
       end
-    end
   end
 
-  # PATCH/PUT /sessions/1 or /sessions/1.json
-  def update
-    respond_to do |format|
-      if @session.update(session_params)
-        format.html { redirect_to @session, notice: "Session was successfully updated." }
-        format.json { render :show, status: :ok, location: @session }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
-      end
-    end
+  def logout
+      session.clear
+      redirect_to root_path
   end
 
-  # DELETE /sessions/1 or /sessions/1.json
-  def destroy
-    @session.destroy
-    respond_to do |format|
-      format.html { redirect_to sessions_url, notice: "Session was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  def omniauth
+      @user = User.find_or_create_by(uid: auth[:uid]) do |u|
+          u.email = auth[:info][:email]
+          u.username = auth[:info][:username]
+          u.name = auth[:info][:name]
+          u.uid = auth[:uid]
+          u.provider = auth[:provider]
+          u.password = SecureRandom.hex(10)
+      end
+
+      if @user.valid?
+          session[:user_id] = @user.id
+          redirect_to '/'
+      else
+          flash[:message] = "#{@user.errors.full_messages.join(', ')}"
+          redirect_to login_path
+      end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_session
-      @session = Session.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def session_params
-      params.fetch(:session, {})
-    end
+  def auth
+      request.env['omniauth.auth']
+  end
+  
 end

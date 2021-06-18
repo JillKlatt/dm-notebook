@@ -1,69 +1,80 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: %i[ show edit update destroy ]
+  before_action :redirect_if_not_logged_in
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :destroy_adventures, only: [:destroy]
+  before_action :set_characters, only: [:new, :create, :edit, :update, :show]
 
-  # GET /campaigns or /campaigns.json
-  def index
-    @campaigns = Campaign.all
-  end
-
-  # GET /campaigns/1 or /campaigns/1.json
   def show
   end
 
-  # GET /campaigns/new
   def new
-    @campaign = Campaign.new
+      @campaign = Campaign.new
+      @character = @campaign.characters.build(user_id: current_user.id)
+      @categories = Category.all
+      @races = Race.all
   end
 
-  # GET /campaigns/1/edit
-  def edit
-  end
-
-  # POST /campaigns or /campaigns.json
-  def create
-    @campaign = Campaign.new(campaign_params)
-
-    respond_to do |format|
+  def create 
+      @campaign = Campaign.new(campaign_params)
+      # @character = Character.new(campaign_params[:character_attributes])
       if @campaign.save
-        format.html { redirect_to @campaign, notice: "Campaign was successfully created." }
-        format.json { render :show, status: :created, location: @campaign }
+          redirect_to campaigns_path
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @campaign.errors, status: :unprocessable_entity }
+          flash[:message] = "#{@campaign.errors.full_messages.join(', ')}"
+          render :new
       end
-    end
   end
 
-  # PATCH/PUT /campaigns/1 or /campaigns/1.json
+  def index
+      @campaigns = current_user.campaigns
+
+  end
+
+  def edit
+      @characters = current_user.characters
+  end
+
   def update
-    respond_to do |format|
-      if @campaign.update(campaign_params)
-        format.html { redirect_to @campaign, notice: "Campaign was successfully updated." }
-        format.json { render :show, status: :ok, location: @campaign }
+      @campaign.update(campaign_params)
+
+      if @campaign.valid?
+              redirect_to campaign_path(@campaign)
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @campaign.errors, status: :unprocessable_entity }
+          flash[:message] = "#{@campaign.errors.full_messages.join(', ')}"
+          render :edit
       end
-    end
   end
 
-  # DELETE /campaigns/1 or /campaigns/1.json
   def destroy
-    @campaign.destroy
-    respond_to do |format|
-      format.html { redirect_to campaigns_url, notice: "Campaign was successfully destroyed." }
-      format.json { head :no_content }
-    end
+      @campaign.destroy
+          if @campaign.destroy
+              flash[:message] = "Campaign Deleted"
+              redirect_to campaigns_path
+          else
+              flash[:message] = @campaign.errors.full_messages.join(" ")
+          end
   end
+
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_campaign
-      @campaign = Campaign.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def campaign_params
-      params.fetch(:campaign, {})
-    end
+  def campaign_params
+      params.require(:campaign).permit(:name, :schedule, :description, :user_id, :id, :adventure_admin, character_ids: [], character_attributes: [:name, :age, :race, :category, :description])
+  end
+
+  def destroy_adventures
+      @campaign.adventures.each do |adventure|
+          adventure.destroy
+      end
+  end
+
+  def set_campaign
+      @campaign = Campaign.find_by(id: params[:id])
+  end
+
+  def set_characters
+      @characters = current_user.characters
+  end
+
+  
 end
