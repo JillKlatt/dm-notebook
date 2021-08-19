@@ -1,9 +1,7 @@
 
 <% if current_user.nil? %>
 
-<br>
-<%= button_to 'Login with Google', "/auth/google_oauth2", method: 'post' %>
-<br>
+<!--<%= button_to 'Login with Google', "/auth/google_oauth2", method: 'post' %> -->
 <%= link_to 'Login with Character-Creator Account', login_path %>
 <% else %>
 <!--Maybe some sort of dropdown like, 'view your creations with characters, weapons, classes, and races?-->
