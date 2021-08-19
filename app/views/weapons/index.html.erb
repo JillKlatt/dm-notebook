@@ -7,6 +7,6 @@
     <%= link_to weapon.name, weapon_path(weapon) %> deals <%= weapon.damage %><br>
     <% end %>
 <% else %>
-    <h2>You don't have any weapons yet!</h2>
+    <h1>You Don't Have Any Weapons Yet!</h1>
     <%= link_to "Create One Now?", new_weapon_path %>
 <% end %>

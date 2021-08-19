@@ -1,7 +1,7 @@
-<br>
-<br>
-<% if @campaigns.count > 0 %>
 
+<% if @campaigns.count > 0 %>
+<br>
+<br>
     <h1>All Your Campaigns:</h1>
 
         <div>
@@ -12,6 +12,6 @@
         </ul>
         </div>
 <% else %>
-    <h1>You don't have any campaigns yet!</h1>
+    <h1>You Don't Have Any Campaigns Yet!</h1>
     <%= link_to 'Create One Now?', new_campaign_path %>
 <% end %>

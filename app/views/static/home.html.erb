@@ -1,8 +1,9 @@
 
 <% if current_user.nil? %>
 
-<!--<%= button_to 'Login with Google', "/auth/google_oauth2", method: 'post' %> -->
-<%= link_to 'Login with Character-Creator Account', login_path %>
+<!--<%= button_to 'Login with Google', "/auth/google_oauth2", method: 'post' %> 
+<%= link_to 'Login with Character-Creator Account', login_path %>-->
+<h3> Sign Up or Sign In to Get Started! </h3>
 <% else %>
 <!--Maybe some sort of dropdown like, 'view your creations with characters, weapons, classes, and races?-->
 <h1 style="color:white;"> Your Dashboard <%= current_user.name %></h1>

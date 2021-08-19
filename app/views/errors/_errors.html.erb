@@ -1,6 +1,8 @@
+    <% if model.errors.count > 0%>
     <div id="error_explanation">
         <h2><%= pluralize(model.errors.count, "error") %> occured: </h2>
         <ul>
             <%=display_errors(model)%>
         </ul>
     </div>
+    <% end %>
