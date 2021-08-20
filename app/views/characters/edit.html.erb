@@ -1,3 +1,4 @@
+<div class='index'>
 <%= if_errors(@character) %>
 <%= render partial: 'form', locals: {model: @character} %>
 
@@ -24,6 +25,7 @@
             <%= f.submit "Update Campaigns" %>
             <% end %>
     <% end %>
+    </div>
 
 
 
