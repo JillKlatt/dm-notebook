@@ -15,7 +15,35 @@
  */
 
 
+.navbar{
+  display: flex;
+  flex-flow:wrap;
+  align-content: center;
+  align-items: flex-start;
+}
+
+.navbar-brand {
+  margin-bottom: 17px;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap:wrap;
+}
+
+.container-fluid {
+  display: flex;
+  flex-flow: row wrap;
+}
+
   .new-creation{
+    display: flex;
+    flex-direction:column;
+    margin: 8% 50%;
+
+  }
+
+  .form {
     display: flex;
   }
  
@@ -38,15 +66,14 @@
     
     a:hover, a:active {
       background-color: rgb(60, 101, 128);
+      border-radius: 4px;
+      color: rgb(219, 145, 145);
     }
 
     #project1:hover h4 {
-      color: rgb(27, 27, 27);
-  }
+      color: rgb(66, 66, 66);
 
-    input.body {
-      width:95%;
-    }
+  }
 
     body {
       background: rgb(219, 145, 145);
@@ -62,6 +89,15 @@
    }
 
    body { 
-    background-image: url('4.png') no-repeat center center; 
+    background-image: url('/4.png') no-repeat center center; 
     background-size: cover;
+  }
+
+  .home {
+    padding: 5px;
+    margin: 8% 25%;
+  }
+
+  .index {
+    display: block;
   }

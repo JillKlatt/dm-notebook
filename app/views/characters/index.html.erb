@@ -1,3 +1,4 @@
+<div class='index'>
 <% if @characters.count > 0 %>
     <% if @campaign.present? %>
         <h1>The characters in this campaign:</h1>
@@ -16,3 +17,4 @@
     <h1> You Don't Have Any Characters Yet!</h1>
     <%= link_to 'Create One Now?', new_character_path %>
 <% end %>
+</div>

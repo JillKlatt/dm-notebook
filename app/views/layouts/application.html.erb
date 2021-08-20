@@ -8,12 +8,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    
+    <%= render(partial: "layouts/nav", locals: { logo_name: "DM Notebook"}) %>
   </head>
 
   <body>
       <div class="wrapper"> 
-<%= render(partial: "layouts/nav", locals: { logo_name: "DM Notebook"}) %>
+
     <div class="container-fluid center color:white">
           <%= flash[:message]%>
           <%= yield %>

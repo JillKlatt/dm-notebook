@@ -3,6 +3,7 @@
 <br>
 <div class='new-creation'>
 <h1>Let's Create a New Character!</h1>
+<br>
 <%= if_errors(@character) %>
 <%= render partial: 'form', locals: {model: @character} %>
 </div>

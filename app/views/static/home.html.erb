@@ -5,16 +5,26 @@
 <%= link_to 'Login with Character-Creator Account', login_path %>-->
 <h3> Sign Up or Sign In to Get Started! </h3>
 <% else %>
-<!--Maybe some sort of dropdown like, 'view your creations with characters, weapons, classes, and races?-->
-<h1 style="color:purple;"> Your Dashboard <%= current_user.name %></h1>
+
+<h1 style="color:purple;"> Your Dashboard <%= current_user.name %>:</h1>
 <br>
 
 
     <% if current_user.campaigns.count >= 1 %>
+    <div class='home'>
             <h3 style="color:blue;">You have the following games scheduled:</h3>
+            <div class='campaign-display'>
+            <br>
             <ul>
                     <% current_user.campaigns.each do |campaign| %>
                         <li class="link-info"><%= link_to campaign.name, campaign_path(campaign) %>  on <%= campaign.schedule %></li>
                     <% end %>
+            </ul>
+            </div>
+            </div>
+    <% else %>
+            <h3 style="color:blue;">There's nothing to display yet!</h3>
+            <p> Get Creating! </p>
+
     <% end %>
 <% end %>

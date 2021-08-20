@@ -7,8 +7,11 @@
     <%= f.text_field :schedule %><br>
     <%= f.label :description %>
     <%= f.text_area :description, :size=>"50" %><br><br>
+
+    <% if @characters.count > 0 %>
     <%= f.label :characters, "Add Characters: (optional)" %><br>
     <%= f.collection_check_boxes :character_ids, @characters, :id, :name %>  <br>
-                    <br>
+         <br>
+    <% end %>
     <%= f.submit %>
 <% end %>
